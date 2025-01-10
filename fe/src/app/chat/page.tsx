@@ -64,19 +64,19 @@ export default function ChatPage() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-950">
+    <div className="flex flex-col h-screen bg-gradient-to-r from-white to-gray-50">
       {/* Enhanced Header */}
-      <header className="bg-gray-900/50 backdrop-blur-sm border-b border-gray-800/50 p-6 fixed w-full top-0 z-10">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-400 p-6 fixed w-full top-0 z-10 shadow-xl rounded-b-xl">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <MessageSquare className="w-7 h-7 text-blue-400" />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            <MessageSquare className="w-7 h-7 text-white" />
+            <h1 className="text-2xl font-semibold text-white tracking-wide drop-shadow-md">
               Welcome, {username}!
             </h1>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center space-x-2 bg-red-500/10 hover:bg-red-500/20 px-6 py-3 rounded-xl text-red-400 transition-all duration-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.25)] font-medium"
+            className="flex items-center space-x-2 bg-red-600 hover:bg-red-500 px-6 py-3 rounded-xl text-white font-medium shadow-lg transition-all duration-300 transform hover:scale-105"
           >
             <LogOut className="w-5 h-5" />
             <span>Logout</span>
@@ -85,17 +85,17 @@ export default function ChatPage() {
       </header>
 
       {/* Main Chat Area */}
-      <main className="flex-1 pt-24 pb-24 px-4 overflow-y-auto bg-gradient-to-b from-gray-950 to-gray-900">
+      <main className="flex-1 pt-28 pb-28 px-4 overflow-y-auto bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-5xl mx-auto">
           {isLoading && (
-            <div className="flex justify-center items-center space-x-3 text-blue-400 py-8">
+            <div className="flex justify-center items-center space-x-3 text-blue-500 py-8">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <p className="text-lg">Loading messages...</p>
+              <p className="text-lg font-medium">Loading messages...</p>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-500/10 text-red-400 p-6 rounded-xl mb-6 border border-red-500/20 shadow-[0_0_25px_rgba(239,68,68,0.15)] font-medium">
+            <div className="bg-red-200 text-red-700 p-6 rounded-xl mb-6 border-l-4 border-red-500 shadow-xl font-medium">
               {error}
             </div>
           )}
@@ -107,25 +107,27 @@ export default function ChatPage() {
                   key={msg.id}
                   className={`p-6 rounded-xl ${
                     msg.sender === username
-                      ? "bg-blue-500/10 ml-auto border border-blue-500/20 shadow-[0_0_25px_rgba(59,130,246,0.15)]"
-                      : "bg-gray-800/50 border border-gray-700/50 shadow-[0_0_25px_rgba(31,41,55,0.15)]"
-                  } max-w-[85%] transition-all duration-300 hover:shadow-lg backdrop-blur-sm`}
+                      ? "bg-blue-100 ml-auto border border-blue-400 shadow-lg"
+                      : "bg-gray-200 border border-gray-300 shadow-md"
+                  } max-w-[85%] transition-all duration-300 hover:scale-105 transform`}
                 >
-                  <div className="font-semibold text-base text-blue-400">
+                  <div className="font-semibold text-base text-blue-600">
                     {msg.sender}
                   </div>
-                  <div className="mt-2 text-gray-100 text-lg leading-relaxed">
+                  <div className="mt-2 text-gray-800 text-lg leading-relaxed">
                     {msg.content}
                   </div>
-                  <div className="text-sm text-gray-400 mt-2">
+                  <div className="text-sm text-gray-500 mt-2">
                     {new Date(msg.timestamp).toLocaleString()}
                   </div>
                 </div>
               ))
             ) : (
-              <div className="text-center text-gray-400 flex flex-col items-center space-y-4 py-12">
-                <MessageSquare className="w-12 h-12" />
-                <p className="text-xl font-medium">No messages yet. Start the conversation!</p>
+              <div className="text-center text-gray-500 flex flex-col items-center space-y-4 py-12">
+                <MessageSquare className="w-12 h-12 text-gray-300" />
+                <p className="text-xl font-semibold text-gray-700">
+                  No messages yet. Start the conversation!
+                </p>
               </div>
             )}
           </div>
@@ -133,7 +135,7 @@ export default function ChatPage() {
       </main>
 
       {/* Enhanced Footer */}
-      <footer className="p-6 bg-gray-900/50 backdrop-blur-sm border-t border-gray-800/50 fixed bottom-0 w-full">
+      <footer className="p-6 bg-white border-t border-gray-200 shadow-md fixed bottom-0 w-full rounded-t-xl">
         <div className="max-w-5xl mx-auto">
           <div className="flex gap-4">
             <input
@@ -142,11 +144,11 @@ export default function ChatPage() {
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Type your message..."
-              className="flex-1 p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-gray-100 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 backdrop-blur-sm"
+              className="flex-1 p-4 bg-white border border-gray-300 rounded-xl text-gray-800 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105"
             />
             <button
               onClick={handleSendMessage}
-              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl transition-all duration-300 flex items-center space-x-3 hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] font-medium text-lg"
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-md"
             >
               <Send className="w-5 h-5" />
               <span>Send</span>
