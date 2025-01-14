@@ -30,4 +30,4 @@ export default function RootLayout({
   );
 }
 
-// Re-export metadata
+
